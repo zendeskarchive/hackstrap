@@ -4,6 +4,7 @@ class User
     def self.client
       consumer = OAuth::Consumer.new(Rails.configuration.twitter.token, Rails.configuration.twitter.secret, { 
         :site => "http://api.twitter.com",
+        :authorize_url => 'http://api.twitter.com/oauth/authenticate',
         :scheme => :header
       })
     end
@@ -20,7 +21,7 @@ class User
         :username     => twitter_user['screen_name'],
         :avatar_url   => twitter_user['profile_image_url_https']
       })
-      user.access_token = token_object.token
+      user.access_token = access_token
       user.provider     = 'github'
       user.save
       user

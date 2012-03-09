@@ -28,3 +28,17 @@
   -moz-transition: all .2s linear;
   transition: all .2s linear;
 }
+
+body {
+  background-image: url("/assets/bg-noise.jpg");
+}
+
+.hero-unit {
+  background-color: #FEFEFE;
+  padding: 40px;
+}
+
+.navbar .dropdown-menu::before,
+.navbar .dropdown-menu::after {
+  border: 0;
+}

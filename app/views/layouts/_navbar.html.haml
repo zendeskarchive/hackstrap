@@ -4,10 +4,18 @@
       %a.brand{:href => "/"} Hackstrap
       .nav-collapse
         %ul.nav
-          %li
-            %span.inactive
-              Logged in via
-              %b= current_user.provider
+          %li.logos
+            = image_tag current_user.avatar_url
+            = image_tag "logos/icon-#{current_user.provider}.png"
+          %li.dropdown
+            %a.dropdown-toggle.home{ :href => '#', 'data-toggle' => "dropdown"}
+              Hello,
+              = current_user.username
+              %b.caret
+            %ul.dropdown-menu
+              %li
+                %a{:href => "/settings"} Settings
+              %li.divider
+              %li
+                %a{:href => "/logout"} Logout
           %li.divider-vertical
-          %li
-            %a{ :href => '/logout'} Logout
