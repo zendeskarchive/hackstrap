@@ -22,7 +22,6 @@ describe Oauth::TwitterController do
   describe "#create" do
 
     before do
-      pending
       @token = mock
       @token.stub!(:token).and_return('TOKKKK')
       @token.stub!(:secret).and_return('SECRETTTT')
