@@ -1,33 +1,23 @@
 class Oauth::TwitterController < ApplicationController
-  REDIRECT_URI = '/oauth/twitter/callback'
-
   skip_before_filter :authenticate_user
 
   def new
-    consumer = User::Twitter.client
-    request_token = consumer.get_request_token(:oauth_callback => User::Twitter.redirect_uri(request))
+    request_token = Providers::Twitter.new(current_user).get_request_token(request)
     session[:request_token] = request_token
     redirect_to request_token.authorize_url
   end
 
   def create
     @request_token = session[:request_token]
-    token = @request_token.get_access_token
+    token          = @request_token.get_access_token
 
-    if token
-      access_token = "#{token.token}:#{token.secret}"
-      if user = User.find_by_access_token(access_token)
-        session[:user_id] = user.id
-        redirect_to '/'
-      elsif user = User::Twitter.create_user(token, access_token)
-        session[:user_id] = user.id
-        redirect_to '/'
-      end
-
+    provider = Providers::Twitter.new(current_user)
+    if user = provider.find_or_create_user(token, request)
+      session[:user_id] = user.id
+      redirect_to '/'
     else
       redirect_to '/login', :error => 'Could not log you in, please try again'
     end
-
   end
 
 end

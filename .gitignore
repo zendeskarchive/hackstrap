@@ -22,3 +22,5 @@ config/database.yml
 .DS_Store
 
 coverage
+
+config/settings.local.yml
