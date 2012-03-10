@@ -22,13 +22,12 @@ module Providers
       "#{request.scheme}://#{(port == 80 || port == 443) ? request.host : request.host_with_port }/oauth/github/callback"
     end
 
-    def find_or_create_user(code, request)
-      token = client.auth_code.get_token(code, :redirect_uri => redirect_uri(request))
+    def find_or_create_user(token, request)
       User.find_by_access_token(token.token) || create_user(token)
     end
 
     def create_user(token)
-      json = token.get("/1/users/show.json?user_id=#{token_object.params['user_id']}").body
+      json = token.get("/1/users/show.json?user_id=#{token.params['user_id']}").body
       twitter_user = JSON.parse(json)
       user = User.new({
         :username     => twitter_user['screen_name'],
