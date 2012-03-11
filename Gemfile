@@ -26,6 +26,7 @@ end
 gem 'jquery-rails'
 
 group :development do
+  gem "mysql2"
   gem "rspec"
   gem "rspec-rails"
   gem "simplecov"
