@@ -9,7 +9,7 @@ describe Providers::Twitter do
 
   describe "#redirect_uri" do
     it "returns the url where the user is redirected" do
-      subject.redirect_uri(@request).should == 'https://foo.com/oauth/github/callback'
+      subject.redirect_uri(@request).should == 'https://foo.com/oauth/twitter/callback'
     end
   end
 

@@ -19,7 +19,7 @@ module Providers
 
     def redirect_uri(request)
       port = request.port.to_i
-      "#{request.scheme}://#{(port == 80 || port == 443) ? request.host : request.host_with_port }/oauth/github/callback"
+      "#{request.scheme}://#{(port == 80 || port == 443) ? request.host : request.host_with_port }/oauth/twitter/callback"
     end
 
     def find_or_create_user(token, request)
