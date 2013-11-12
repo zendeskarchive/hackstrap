@@ -9,7 +9,7 @@ class Oauth::TwitterController < ApplicationController
 
   def create
     @request_token = session[:request_token]
-    token          = @request_token.get_access_token
+    token          = @request_token.get_access_token(:oauth_verifier => params[:oauth_verifier])
 
     provider = Providers::Twitter.new(current_user)
     if user = provider.find_or_create_user(token, request)
